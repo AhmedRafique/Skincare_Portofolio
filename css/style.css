@@ -41,7 +41,7 @@ nav .logo {
     text-decoration: none;
 }
 
-nav ul {
+nav .nav-links {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -49,17 +49,30 @@ nav ul {
     gap: 2rem;
 }
 
-nav ul li a {
+nav .nav-links li a {
     text-decoration: none;
     color: var(--text-color);
     font-weight: 400;
     transition: color 0.3s ease;
 }
 
-nav ul li a:hover,
-nav ul li a.active {
+nav .nav-links li a:hover,
+nav .nav-links li a.active {
     color: var(--primary-color);
     font-weight: 600;
+}
+
+.hamburger {
+    display: none;
+    cursor: pointer;
+}
+
+.hamburger .line {
+    width: 25px;
+    height: 3px;
+    background-color: var(--text-color);
+    margin: 5px;
+    transition: all 0.3s ease;
 }
 
 /* Main Content */
@@ -202,9 +215,47 @@ footer {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    nav ul {
-        /* In a real project, this would be hidden and controlled by a JS hamburger menu */
-        display: none; 
+    body {
+        overflow-x: hidden;
+    }
+
+    .nav-links {
+        position: fixed;
+        right: 0px;
+        top: 70px; /* Adjust if header height changes */
+        background-color: var(--white);
+        height: calc(100vh - 70px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 60%;
+        transform: translateX(100%);
+        transition: transform 0.5s ease-in;
+        box-shadow: -2px 0px 5px rgba(0,0,0,0.1);
+        padding-top: 2rem;
+        gap: 1rem;
+    }
+
+    .nav-links li {
+        opacity: 0;
+    }
+
+    .nav-links.nav-active {
+        transform: translateX(0%);
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    .toggle .line1 {
+        transform: rotate(-45deg) translate(-5px, 6px);
+    }
+    .toggle .line2 {
+        opacity: 0;
+    }
+    .toggle .line3 {
+        transform: rotate(45deg) translate(-5px, -6px);
     }
 
     .hero h1 {
@@ -213,5 +264,16 @@ footer {
 
     .hero p {
         font-size: 1rem;
+    }
+}
+
+@keyframes navLinkFade {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0px);
     }
 }
